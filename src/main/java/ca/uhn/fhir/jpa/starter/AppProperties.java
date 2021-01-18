@@ -70,6 +70,16 @@ public class AppProperties {
     return defer_indexing_for_codesystems_of_size;
   }
 
+  public Boolean use_authentication = true;
+
+  public Boolean getUse_authentication() {
+    return use_authentication;
+  }
+
+  public void setUse_authentication(final Boolean use_authentication) {
+    this.use_authentication = use_authentication;
+  }
+
   public void setDefer_indexing_for_codesystems_of_size(Integer defer_indexing_for_codesystems_of_size) {
     this.defer_indexing_for_codesystems_of_size = defer_indexing_for_codesystems_of_size;
   }
@@ -393,6 +403,7 @@ public class AppProperties {
   public void setLastn_enabled(Boolean lastn_enabled) {
     this.lastn_enabled = lastn_enabled;
   }
+
 
   public static class Cors {
     private Boolean allow_Credentials = true;

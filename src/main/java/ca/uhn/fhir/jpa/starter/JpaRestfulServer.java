@@ -1,6 +1,7 @@
 package ca.uhn.fhir.jpa.starter;
 
 import ca.uhn.fhir.jpa.starter.interceptor.BasicSecurityInterceptor;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
@@ -22,8 +23,14 @@ public class JpaRestfulServer extends BaseJpaRestfulServer {
   protected void initialize() throws ServletException {
     super.initialize();
 
-    // Add your own customization here
-    final BasicSecurityInterceptor authInterceptor = new BasicSecurityInterceptor();
-    this.registerInterceptor(authInterceptor);
+    System.out.println("using authentication?   " + BooleanUtils.isTrue(appProperties.getUse_authentication()));
+
+    if (BooleanUtils.isTrue(appProperties.getUse_authentication())) {
+      System.out.println("using authentication");
+      // Add your own customization here
+      final BasicSecurityInterceptor authInterceptor = new BasicSecurityInterceptor();
+      this.registerInterceptor(authInterceptor);
+
+    }
   }
 }
