@@ -1,19 +1,28 @@
+server:
+  port: 5555
+
 spring:
   datasource:
-    url: 'jdbc:h2:file:./target/database/h2'
+#    url: 'jdbc:mysql://localhost:3306/fhir_khxy'
+#    username: khxy
+#    password: khxy
+#    driverClassName: com.mysql.jdbc.Driver
+
+
+    url: 'jdbc:h2:file:./target/database/khxy'
     #url: jdbc:h2:mem:test_mem
     username: sa
     password: null
     driverClassName: org.h2.Driver
     max-active: 15
-#  jpa:
-#    properties:
+  jpa:
+    properties:
 #      hibernate.dialect: org.hibernate.dialect.h2dialect
 #      hibernate.search.model_mapping: ca.uhn.fhir.jpa.search.lucenesearchmappingfactory
-#      hibernate.format_sql: false
-#      hibernate.show_sql: false
-#      hibernate.hbm2ddl.auto: update
-#      hibernate.jdbc.batch_size: 20
+      hibernate.format_sql: false
+      hibernate.show_sql: false
+      hibernate.hbm2ddl.auto: update
+      hibernate.jdbc.batch_size: 20
 #      hibernate.cache.use_query_cache: false
 #      hibernate.cache.use_second_level_cache: false
 #      hibernate.cache.use_structured_entries: false
@@ -28,10 +37,16 @@ spring:
 
 hapi:
   fhir:
-    ### enable to set the Server URL
-#    server_address: http://hapi.fhir.org/baseR4
-    ### This is the FHIR version. Choose between, DSTU2, DSTU3, R4 or R5
     fhir_version: R4
+    allow_external_references: true
+    allow_cascading_deletes: true
+    default_encoding: JSON
+    default_pretty_print: true
+    fhirpath_interceptor_enabled: true
+
+    ### enable to set the Server URL
+    # server_address: http://localhost:5555/baseR4
+    ### This is the FHIR version. Choose between, DSTU2, DSTU3, R4 or R5
 #    defer_indexing_for_codesystems_of_size: 101
     #implementationguides:
       #example from registry (packages.fhir.org)
@@ -47,15 +62,11 @@ hapi:
     #supported_resource_types:
     #  - Patient
     #  - Observation
-#    allow_cascading_deletes: true
 #    allow_contains_searches: true
-#    allow_external_references: true
 #    allow_multiple_delete: true
 #    allow_override_default_search_params: true
 #    allow_placeholder_references: true
 #    auto_create_placeholder_reference_targets: false
-#    default_encoding: JSON
-#    default_pretty_print: true
 #    default_page_size: 20
 #    enable_index_missing_fields: false
 #    enforce_referential_integrity_on_delete: false
@@ -63,7 +74,6 @@ hapi:
 #    etag_support_enabled: true
 #    expunge_enabled: true
 #    daoconfig_client_id_strategy: null
-#    fhirpath_interceptor_enabled: false
 #    filter_search_enabled: true
 #    graphql_enabled: true
 #    narrative_enabled: true
@@ -92,10 +102,9 @@ hapi:
 #    retain_cached_searches_mins: 60
 #    reuse_cached_search_results_millis: 60000
     tester:
-
         home:
           name: Local Tester
-          server_address: 'http://localhost:8080/fhir'
+          server_address: 'http://localhost:5555/fhir'
           refuse_to_fetch_third_party_urls: false
           fhir_version: R4
 
@@ -104,9 +113,9 @@ hapi:
           server_address: "http://hapi.fhir.org/baseR4"
           refuse_to_fetch_third_party_urls: false
           fhir_version: R4
-#    validation:
-#      requests_enabled: true
-#      responses_enabled: true
+    validation:
+      requests_enabled: true
+      responses_enabled: true
 #    binary_storage_enabled: true
 #    bulk_export_enabled: true
 #    partitioning_multitenancy_enabled:
@@ -124,16 +133,3 @@ hapi:
 #        startTlsRequired:
 #        quitWait:
 #    lastn_enabled: true
-
-
-#
-#elasticsearch:
-#  debug:
-#    pretty_print_json_log: false
-#    refresh_after_write: false
-#  enabled: false
-#  password: SomePassword
-#  required_index_status: YELLOW
-#  rest_url: 'http://localhost:9200'
-#  schema_management_strategy: CREATE
-#  username: SomeUsername

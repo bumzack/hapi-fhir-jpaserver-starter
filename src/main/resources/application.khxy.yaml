@@ -1,0 +1,44 @@
+server:
+  port: 5555
+
+spring:
+  datasource:
+#    url: 'jdbc:mysql://localhost:3306/fhir_khxy'
+#    username: khxy
+#    password: khxy
+#    driverClassName: com.mysql.jdbc.Driver
+
+  #url: 'jdbc:h2:file:./target/database/khxy'
+  url: jdbc:h2:mem:khxy
+  username: sa
+  password: null
+  driverClassName: org.h2.Driver
+  max-active: 15
+
+  batch:
+    job:
+      enabled: false
+
+hapi:
+  fhir:
+    fhir_version: R4
+    allow_cascading_deletes: true
+    allow_external_references: true
+    default_encoding: JSON
+    default_pretty_print: true
+    fhirpath_interceptor_enabled: true
+    tester:
+        home:
+          name: Local Tester
+          server_address: 'https://kh-xy.bumzack.at/fhir'
+          refuse_to_fetch_third_party_urls: false
+          fhir_version: R4
+
+        global:
+          name: Global Tester
+          server_address: "http://hapi.fhir.org/baseR4"
+          refuse_to_fetch_third_party_urls: false
+          fhir_version: R4
+    validation:
+      requests_enabled: true
+      responses_enabled: true
