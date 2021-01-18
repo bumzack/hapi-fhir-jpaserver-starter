@@ -1,3 +1,5 @@
+useauthentication: true
+
 server:
   port: 5555
 

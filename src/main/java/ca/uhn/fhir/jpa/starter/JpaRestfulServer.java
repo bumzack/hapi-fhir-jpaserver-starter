@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 @Import(AppProperties.class)
 public class JpaRestfulServer extends BaseJpaRestfulServer {
 
+  @Value("useauthentication")
+  private boolean useAuthentication;
   @Autowired
   AppProperties appProperties;
 
@@ -22,8 +24,14 @@ public class JpaRestfulServer extends BaseJpaRestfulServer {
   protected void initialize() throws ServletException {
     super.initialize();
 
-    // Add your own customization here
-    final BasicSecurityInterceptor authInterceptor = new BasicSecurityInterceptor();
-    this.registerInterceptor(authInterceptor);
+    System.out.println("using authentication?   " + useAuthentication);
+
+    if (useAuthentication) {
+      System.out.println("using authentication");
+      // Add your own customization here
+      final BasicSecurityInterceptor authInterceptor = new BasicSecurityInterceptor();
+      this.registerInterceptor(authInterceptor);
+
+    }
   }
 }
